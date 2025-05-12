@@ -20,7 +20,7 @@ const ProjectsPage = () => {
   ];
   return (
     <div className="bg-white w-full min-h-screen">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 xl:gap-10 py-[5vw] max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-6 xl:gap-10 p-[5vw] max-w-7xl mx-auto">
         {projects.map((project) => (
           <ProjectCard
             key={project.id}
