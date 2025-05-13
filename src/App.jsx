@@ -4,6 +4,7 @@ import PhotoCard from "./components/PhotoCard";
 import HomeCard from "./components/HomeCard";
 import imgResume from "./assets/ResumePreview.png";
 import ProjectsPage from "./components/ProjectsPage";
+import ProjectDetailPage from "./components/ProjectDetailPage";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -33,6 +34,7 @@ function App() {
                     title="Read my resume"
                     desc="Studies · What tools do I use · Where have I worked"
                     image={imgResume}
+                    link="/projects"
                   />
                 </div>
               </div>
@@ -46,6 +48,12 @@ function App() {
               <Navbar /> <ProjectsPage />
             </div>
           }
+        />
+        <Route
+        path="/projects/:id"
+        element={
+          <ProjectDetailPage/>
+        }
         />
       </Routes>
     </BrowserRouter>

@@ -8,7 +8,10 @@ const ProjectCard = (props) => {
         <h2 className="font-bold text-xl">{props.title}</h2>
         <span className="font font-medium text-gray-500">{props.desc}</span>
         <div className="my-4">
-          <Button text="Read more" />
+          <Button 
+          text="Read more" 
+          id={props.id}
+          />
         </div>
       </div>
     </div>

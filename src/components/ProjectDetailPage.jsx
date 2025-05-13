@@ -1,8 +1,10 @@
-import ProjectCard from "./ProjectCard";
-const ProjectsPage = () => {
+import { useParams } from "react-router-dom";
+
+const ProjectDetailPage = () => {
+  const { id } = useParams();
   const projects = [
     {
-      id:1,
+      id: 1,
       imgLink:
         "https://images.unsplash.com/photo-1746990263194-0e2826fed608?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Banco Pichincha - Website redesign",
@@ -10,7 +12,7 @@ const ProjectsPage = () => {
         "Redesign of Components, templates, and information architecture to improve usability and enhance business conversion.",
     },
     {
-      id:2,
+      id: 2,
       imgLink:
         "https://images.unsplash.com/photo-1746730251085-34132b6dcec5?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "QR Code Money Requests",
@@ -18,21 +20,15 @@ const ProjectsPage = () => {
         "Money requests and payments through QR codes, enhancing convenience, security, and accessibility in digital transactions.",
     },
   ];
+  const project = projects.find((p) => p.id === parseInt(id));
+  if (!project) return <div>Project not found</div>;
+
   return (
-    <div className="bg-white w-full min-h-screen">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-6 xl:gap-10 p-[5vw] max-w-7xl mx-auto">
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            id={project.id}
-            img={project.imgLink}
-            title={project.title}
-            desc={project.description}
-          />
-        ))}
-      </div>
+    <div className="bg-white p-4 md:p-6">
+      <h1 className="text-2xl font-bold text-main-text">{project.title}</h1>
+      <p>{project.description}</p>
     </div>
   );
 };
-export default ProjectsPage;
 
+export default ProjectDetailPage;
