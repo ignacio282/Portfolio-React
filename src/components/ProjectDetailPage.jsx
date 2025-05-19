@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
 import Navbar from "./Navbar";
+import { useState } from "react";
 
 const ProjectDetailPage = () => {
   const { id } = useParams();
+  const [isExpanded, setIsExpanded] = useState(false);
   const projects = [
     {
       id: 1,
@@ -126,6 +128,21 @@ const ProjectDetailPage = () => {
                 </div>
               )
           )}
+        </div>
+        {/* expanded section */}
+        <div>
+          <button
+          onClick={()=>setIsExpanded(!isExpanded)}
+          className="text-blue-500 text-lg font-bold mt-12 mx-auto block"
+          >
+            {isExpanded ? "show less" : " Want to learn more?"}
+          </button>
+          {isExpanded && (
+            <div>
+              <p>Expanded content</p>
+            </div>
+          )}
+
         </div>
       </div>
     </div>
