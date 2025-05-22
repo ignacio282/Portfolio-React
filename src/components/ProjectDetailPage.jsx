@@ -1,73 +1,12 @@
 import { useParams } from "react-router-dom";
 import Navbar from "./Navbar";
 import { useState } from "react";
+import { projects } from "../data/projects";
 
 const ProjectDetailPage = () => {
   const { id } = useParams();
   const [isExpanded, setIsExpanded] = useState(false);
-  const projects = [
-    {
-      id: 1,
-      imgLink:
-        "https://images.unsplash.com/photo-1746990263194-0e2826fed608?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      title: "Banco Pichincha - Website redesign",
-      heroImage:
-        "https://images.unsplash.com/photo-1746990263194-0e2826fed608?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      description:
-        "Redesign of Components, templates, and information architecture to improve usability and enhance business conversion.",
-      sections: [
-        {
-          item: "Summary",
-          content:
-            "Revamped the public website for Banco Pichincha, Ecuador's largest bank (2M+ monthly users), to fix usability and outdated design",
-        },
-        {
-          item: "Role",
-          content: "UX/UI Designer – Research, Prototyping, Testing",
-        },
-        {
-          item: "Tool used",
-          content: "Figma, Maze, Google Analytics, Adobe Suite",
-        },
-        {
-          title: "Overview",
-          subsections: [
-            {
-              title: "The challenge",
-              content: [
-                "Users struggled with poor navigation and outdated content, driving them to costly physical channels.",
-                "Users were reluctant to contact the physical channels because they are slow"
-              ],
-            },
-            {
-              title: "The Approach",
-              content: [
-                "Researched 50,000+ users via surveys and interviews to build personas.",
-                "Redesigned information architecture with tree testing and benchmarking.",
-                "Overhauled CMS components for a modern, intuitive UI",
-              ],
-            },
-            {
-              title: "The Outcome",
-              content: [
-                "Streamlined navigation with a mega menu and digital catalogs.",
-                "Improved usability across devices, cutting user effort (e.g., faster product access).",
-                "Boosted engagement by 15% through enhanced navigation and content clarity."
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: 2,
-      imgLink:
-        "https://images.unsplash.com/photo-1746730251085-34132b6dcec5?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      title: "QR Code Money Requests",
-      description:
-        "Money requests and payments through QR codes, enhancing convenience, security, and accessibility in digital transactions.",
-    },
-  ];
+
   const project = projects.find((p) => p.id === parseInt(id));
   if (!project) return <div>Project not found</div>;
 
@@ -115,8 +54,8 @@ const ProjectDetailPage = () => {
                             <h1 className="font-bold text-3xl">
                               {subsection.title}
                             </h1>
-                            <ul className="list-disc list-inside space-y-2">
-                              {subsection.content.map((item,i)=>(
+                            <ul className="list-disc list-inside space-y-4">
+                              {subsection.content.map((item, i) => (
                                 <li key={i}>{item}</li>
                               ))}
                             </ul>
@@ -132,17 +71,44 @@ const ProjectDetailPage = () => {
         {/* expanded section */}
         <div>
           <button
-          onClick={()=>setIsExpanded(!isExpanded)}
-          className="text-blue-500 text-lg font-bold mt-12 mx-auto block"
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-blue-500 text-lg font-bold mt-12 mx-auto block"
           >
             {isExpanded ? "show less" : " Want to learn more?"}
           </button>
-          {isExpanded && (
-            <div>
-              <p>Expanded content</p>
+          {isExpanded && project.learnMore && (
+            <div className="space-y-10 mt-5">
+              {project.learnMore.map((sect, index) => (
+                <div key={index} className="space-y-4">
+                  <h2 className="font-bold text-teal-accent text-2xl">
+                    {sect.heading}
+                  </h2>
+                  <h3 className="font-bold text-xl text-gray-800 mb-4">
+                    {sect.subheading}
+                  </h3>
+                  {sect.paragraphs.map((para, i) => (
+                    <p key={i} className="text-gray-800 text-base/8">
+                      {para}
+                    </p>
+                  ))}
+                  {sect.images &&
+                    sect.images.map((img, ind) => (
+                      <img
+                        key={ind}
+                        src={img}
+                        className="mx-auto w-full max-w-md h-auto rounded-lg mb-20"
+                      ></img>
+                    ))}
+                  {sect.list &&
+                    sect.list.map((list, i) => (
+                      <ul key={i} className="list-disc px-4">
+                        <li className="my-8 text-base/8">{list}</li>
+                      </ul>
+                    ))}
+                </div>
+              ))}
             </div>
           )}
-
         </div>
       </div>
     </div>
